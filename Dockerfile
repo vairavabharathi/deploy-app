@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install -y mysql-client
 
 # Set the working directory in the container
-WORKDIR /app/
+WORKDIR /app/backand
 
 # Copy and install requirements
 COPY requirements.txt ./
