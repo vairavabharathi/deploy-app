@@ -1,25 +1,21 @@
-# Use Ubuntu as the base image
-FROM ubuntu:latest
-
-# Install necessary dependencies for the backend
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    pip3 install --upgrade pip && \
-    apt-get install -y mysql-client
+# Use an official Node.js runtime as the base image
+FROM node:14
 
 # Set the working directory in the container
-WORKDIR /app/backand
+WORKDIR /usr/src/app
 
-# Copy and install requirements
-COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
 # Expose the port the app runs on
+EXPOSE 3000
 
-EXPOSE 5000
+# Command to run the application
+CMD ["npm", "start"]
 
-# Define the command to run the application
-CMD ["python3", "app.py"]
