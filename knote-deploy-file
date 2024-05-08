@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knote
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: knote
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: knote
+        tier: frontend
+    spec:
+      containers:
+        - name: app
+          image: learnitguide/knotejs:1.0
+          ports:
+            - containerPort: 3000
